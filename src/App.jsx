@@ -1,4 +1,5 @@
 import {
+  Box,
   Button,
   ButtonGroup,
   Grid,
@@ -12,6 +13,7 @@ import GenreList from "./components/GenreList";
 import { useState } from "react";
 import PlatformSelecter from "./components/PlatformSelecter";
 import SortSelecter from "./components/SortSelecter";
+import GameHeading from "./components/GameHeading";
 
 function App() {
   const [selectedGenre, SetSelectedGenre] = useState(null);
@@ -46,16 +48,19 @@ function App() {
       </Show>
 
       <GridItem area="main">
-        <HStack spacing={5} paddingLeft={2} marginBottom={5}>
-          <PlatformSelecter
-            selectedPlatform={selectedPlatform}
-            onSelectPlatform={(platform) => SetselectedPlatform(platform)}
-          />
-          <SortSelecter
-            selectedSortOrder={selectedSortOrder}
-            onSelectSortOrder={(sortOrder) => SetselectedSortOrder(sortOrder)}
-          />
-        </HStack>
+        <Box paddingLeft={2}>
+          <GameHeading genre={selectedGenre} platform={selectedPlatform} />
+          <HStack spacing={5} marginBottom={5}>
+            <PlatformSelecter
+              selectedPlatform={selectedPlatform}
+              onSelectPlatform={(platform) => SetselectedPlatform(platform)}
+            />
+            <SortSelecter
+              selectedSortOrder={selectedSortOrder}
+              onSelectSortOrder={(sortOrder) => SetselectedSortOrder(sortOrder)}
+            />
+          </HStack>
+        </Box>
 
         <GameGrid
           selectedPlatform={selectedPlatform}
