@@ -8,6 +8,8 @@ import PlatformSelecter from "./components/PlatformSelecter";
 function App() {
   const [selectedGenre, SetSelectedGenre] = useState(null);
 
+  const [selectedPlatform, SetselectedPlatform] = useState(null);
+
   return (
     <Grid
       templateAreas={{
@@ -32,8 +34,14 @@ function App() {
       </Show>
 
       <GridItem area="main">
-        <PlatformSelecter/>
-        <GameGrid selectedGenre={selectedGenre} />
+        <PlatformSelecter
+          selectedPlatform={selectedPlatform}
+          onSelectPlatform={(platform) => SetselectedPlatform(platform)}
+        />
+        <GameGrid
+          selectedPlatform={selectedPlatform}
+          selectedGenre={selectedGenre}
+        />
       </GridItem>
     </Grid>
   );
