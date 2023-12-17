@@ -5,12 +5,14 @@ import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 
 const GameGrid = (props) => {
-  const { selectedGenre, selectedPlatform, selectedSortOrder } = props;
+  const { selectedGenre, selectedPlatform, selectedSortOrder, insertedText } =
+    props;
 
   const { data, error, isLoading } = useGames(
     selectedGenre,
     selectedPlatform,
-    selectedSortOrder
+    selectedSortOrder,
+    insertedText
   );
 
   const skeletons = [1, 2, 3, 4, 5, 6];

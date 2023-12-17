@@ -1,6 +1,11 @@
 import useData from "./useData";
 
-const useGames = (selectedGenre, selectedPlatform, selectedSortOrder) =>
+const useGames = (
+  selectedGenre,
+  selectedPlatform,
+  selectedSortOrder,
+  insertedText
+) =>
   useData(
     "/games",
     {
@@ -8,9 +13,10 @@ const useGames = (selectedGenre, selectedPlatform, selectedSortOrder) =>
         genres: selectedGenre?.id,
         platform: selectedPlatform?.id,
         ordering: selectedSortOrder,
+        search: insertedText,
       },
     },
-    [selectedGenre?.id, selectedPlatform?.id, selectedSortOrder]
+    [selectedGenre?.id, selectedPlatform?.id, selectedSortOrder, insertedText]
   );
 
 export default useGames;

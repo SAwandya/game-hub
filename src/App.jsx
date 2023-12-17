@@ -20,6 +20,8 @@ function App() {
 
   const [selectedSortOrder, SetselectedSortOrder] = useState(null);
 
+  const [insertedText, setSearchText] = useState("");
+
   return (
     <Grid
       templateAreas={{
@@ -32,7 +34,7 @@ function App() {
       }}
     >
       <GridItem area="nav">
-        <NavBar />
+        <NavBar onSearch={(searchText) => setSearchText(searchText)} />
       </GridItem>
       <Show above="lg">
         <GridItem area="aside" paddingX={5}>
@@ -59,6 +61,7 @@ function App() {
           selectedPlatform={selectedPlatform}
           selectedGenre={selectedGenre}
           selectedSortOrder={selectedSortOrder}
+          insertedText={insertedText}
         />
       </GridItem>
     </Grid>
