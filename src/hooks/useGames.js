@@ -1,4 +1,5 @@
-import useData from "./useData";
+import { useQuery } from "@tanstack/react-query";
+import apiClient from "../services/api-client";
 
 const useGames = (
   selectedGenre,
@@ -6,17 +7,25 @@ const useGames = (
   selectedSortOrder,
   insertedText
 ) =>
-  useData(
-    "/games",
-    {
-      params: {
-        genres: selectedGenre?.id,
-        platform: selectedPlatform?.id,
-        ordering: selectedSortOrder,
-        search: insertedText,
-      },
-    },
-    [selectedGenre?.id, selectedPlatform?.id, selectedSortOrder, insertedText]
-  );
+  useQuery({
+    queryKey: [
+      "games",
+      selectedGenre,
+      selectedPlatform,
+      selectedSortOrder,
+      insertedText,
+    ],
+    queryFn: () =>
+      apiClient
+        .get("/games", {
+          params: {
+            genres: selectedGenre?.id,
+            parent_platforms: selectedPlatform?.id,
+            ordering: selectedSortOrder,
+            search: insertedText,
+          },
+        })
+        .then((res) => res.data),
+  });
 
 export default useGames;
