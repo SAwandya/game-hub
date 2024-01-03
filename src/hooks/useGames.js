@@ -1,15 +1,16 @@
 import { useInfiniteQuery, useQuery } from "@tanstack/react-query";
 import APIClient from "../services/api-client";
+import useGameQueryStore from "../store";
 
 const apiClient = new APIClient("/games");
 
-const useGames = (
-  selectedGenre,
-  selectedPlatform,
-  selectedSortOrder,
-  insertedText
-) =>
-  useInfiniteQuery({
+const useGames = () => {
+  const selectedGenre = useGameQueryStore((s) => s.selectedGenre);
+  const selectedPlatform = useGameQueryStore((s) => s.selectedPlatform);
+  const selectedSortOrder = useGameQueryStore((s) => s.selectedSortOrder);
+  const insertedText = useGameQueryStore((s) => s.insertedText);
+
+  return useInfiniteQuery({
     queryKey: [
       "games",
       selectedGenre,
@@ -31,6 +32,9 @@ const useGames = (
     getNextPageParam: (lastPage, allPage) => {
       return lastPage.next ? allPage.length + 1 : undefined;
     },
+
+    staleTime: 24 * 60 * 60 * 1000, //24h
   });
+};
 
 export default useGames;

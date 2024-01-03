@@ -1,14 +1,11 @@
-import { Button, SimpleGrid, Skeleton, Text } from "@chakra-ui/react";
+import { Button, SimpleGrid, Skeleton, Text, Box } from "@chakra-ui/react";
 import useGames from "../hooks/useGames";
 import GameCard from "./GameCard";
 import GameCardSkeleton from "./GameCardSkeleton";
 import GameCardContainer from "./GameCardContainer";
 import React from "react";
 
-const GameGrid = (props) => {
-  const { selectedGenre, selectedPlatform, selectedSortOrder, insertedText } =
-    props;
-
+const GameGrid = () => {
   const {
     data,
     error,
@@ -16,12 +13,7 @@ const GameGrid = (props) => {
     isFetchingNextPage,
     fetchNextPage,
     hasNextPage,
-  } = useGames(
-    selectedGenre,
-    selectedPlatform,
-    selectedSortOrder,
-    insertedText
-  );
+  } = useGames();
 
   const skeletons = [1, 2, 3, 4, 5, 6];
 
@@ -37,7 +29,7 @@ const GameGrid = (props) => {
             </GameCardContainer>
           ))}
         {data?.pages.map((page, index) => (
-          <React.Fragment>
+          <React.Fragment key={index}>
             {page.results.map((game) => (
               <GameCardContainer key={game.id}>
                 <GameCard game={game} />
